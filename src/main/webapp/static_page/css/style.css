@@ -1,0 +1,35 @@
+﻿/*=======================================
+    GENERAL STYLES
+==================================================*/
+body {
+    font-family: 'Nova Flat', cursive;
+    background-color: #5aaf7b;
+color: #fff;
+}
+.pad-top {
+    padding-top:60px;
+}
+.text-center {
+    text-align:center;
+}
+#error-link {
+    font-size:150px;
+    padding:10px;
+}
+.btn-primary {
+    background-color: #2f3a4e;
+    border: none;
+    height: 45px;
+    line-height: 45px;
+    width: 120px;
+    padding: 0 15px;
+    font-size: 16px;
+}
+.btn-primary:hover {
+    background-color: #202937;
+}
+.error-info {
+    margin-top: 15px;
+}
+
+

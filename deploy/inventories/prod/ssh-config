@@ -1,0 +1,4 @@
+Host 212.64.23.17
+    User deploy
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/house-deploy.key

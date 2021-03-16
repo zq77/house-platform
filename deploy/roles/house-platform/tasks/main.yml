@@ -1,0 +1,37 @@
+---
+# This roles installs app
+
+- name: create parent folder
+  command: sudo mkdir -p /app/codes && mkdir -p /app/logs
+
+- name: Go to the folder and execute command
+  command: chdir=/app/codes ls
+
+- name: Ansible check directory exists example.
+  stat:
+    path: /app/codes/house-platform
+  register: code_folder
+
+- name: git clone code
+  shell: cd /app/codes && git clone git@git.coding.net:bucket-z/house-platform.git
+  when: not code_folder.stat.exists or not code_folder.stat.isdir
+
+- name: git pull
+  shell: cd /app/codes/house-platform && sudo git checkout . && sudo git pull -r
+  when: code_folder.stat.exists and code_folder.stat.isdir
+
+- name: node
+  shell: cd /app/codes/house-platform && sudo npm install
+
+- name: gulp
+  shell: cd /app/codes/house-platform && sudo ASSETS_ENV=PRODUCTION gulp prod
+
+- name: update config
+  template: src=application.properties.j2 dest=/app/codes/house-platform/src/main/resources/application.properties
+
+- name: kill exists app
+  shell: ps -ef | grep spring-boot:run | grep -v ' grep ' | awk '{print $2}' | sudo xargs kill -9
+  ignore_errors: yes
+
+- name: mvn spring-boot run
+  shell: cd /app/codes/house-platform && sudo nohup /software/apache-maven-3.5.4/bin/mvn clean package spring-boot:run > /app/logs/output.log 2>&1 &

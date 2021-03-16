@@ -1,0 +1,15 @@
+.ctrl-filter {
+    margin-bottom: 20px;
+    .filter {
+        margin-top: 20px;
+        display: inline-block;
+    }
+}
+.common-list:before,
+.common-list:after {
+    display: table;
+    content: " ";
+}
+.common-list:after {
+    clear: both;
+}  

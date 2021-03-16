@@ -1,0 +1,14 @@
+---
+- hosts: web
+  become: yes
+  become_user: root
+  roles:
+    # - base
+    # - supervisor
+    - { role: nodejs-v6, when: init_deploy is defined and init_deploy, tag: nodejs-v6}
+    # - openresty-wg
+    - house-platform
+  vars:
+    proxy_env:
+      http_proxy:  "{{ http_proxy }}"
+      https_proxy: "{{ http_proxy }}"
